@@ -10,6 +10,7 @@ from torchvision.utils import make_grid, save_image
 from torch.utils.data import DataLoader
 from matplotlib import pyplot as plt
 from tqdm import tqdm
+import subprocess
 
 # learning parameters
 batch_size = 512
@@ -19,6 +20,8 @@ nz = 128 # latent vector size
 k = 1 # number of steps to apply to the discriminator
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
+print(device)
+
 transform = transforms.Compose([
                                 transforms.ToTensor(),
                                 transforms.Normalize((0.5,),(0.5,)),
@@ -26,8 +29,8 @@ transform = transforms.Compose([
 to_pil_image = transforms.ToPILImage()
 
 # Make input, output folders
-!mkdir -p input
-!mkdir -p outputs
+subprocess.run("mkdir -p input")
+subprocess.run("mkdir -p outputs")
 
 # Load train data
 train_data = datasets.MNIST(
@@ -122,6 +125,7 @@ def generator_loss(output, true_label):
     
     
     ######################################
+    pass
     
 def discriminator_loss(output, true_label):
     ############ YOUR CODE HERE ##########
@@ -129,6 +133,7 @@ def discriminator_loss(output, true_label):
     
     
     ######################################
+    pass
     
 
 for epoch in range(epochs):
@@ -139,6 +144,7 @@ for epoch in range(epochs):
     
     
         ######################################
+        pass
     
     
     # create the final fake image for the epoch
