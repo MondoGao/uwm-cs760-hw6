@@ -1,3 +1,5 @@
+input/data/MNIST
+outputs
 *.pdf
 !hw4.pdf
 
