@@ -14,9 +14,9 @@ import subprocess
 
 # learning parameters
 batch_size = 512
-epochs = 50
+epochs = 100
 epochs = 10
-epochs = 1
+# epochs = 1
 sample_size = 64  # fixed sample size for generator
 nz = 128  # latent vector size
 k = 1  # number of steps to apply to the discriminator
@@ -33,6 +33,7 @@ transform = transforms.Compose(
 to_pil_image = transforms.ToPILImage()
 
 # Make input, output folders
+subprocess.run(["rm", "-rf", "outputs"])
 subprocess.run(["mkdir", "-p", "input"])
 subprocess.run(["mkdir", "-p", "outputs"])
 
@@ -164,7 +165,6 @@ for epoch in range(epochs):
         output = discriminator(real_cpu)
         err_d_real = discriminator_loss(output, label)
         err_d_real.backward()
-        D_x = output.mean().item()
         # all fake batch
         batch_noise = create_noise(b_size, nz)
         fake = generator(batch_noise)
@@ -172,7 +172,6 @@ for epoch in range(epochs):
         output = discriminator(fake.detach())
         err_d_fake = discriminator_loss(output, label)
         err_d_fake.backward()
-        D_G_z1 = output.mean().item()
         err_d = err_d_real + err_d_fake
         optim_d.step()
 
@@ -195,11 +194,11 @@ for epoch in range(epochs):
     generated_img = make_grid(generated_img)
 
     # visualize generated images
-    if (epoch + 1) % 5 == 0:
-        plt.imshow(generated_img.permute(1, 2, 0))
-        plt.title(f"epoch {epoch+1}")
-        plt.axis("off")
-        plt.show()
+    # if (epoch + 1) % 5 == 0:
+    #     plt.imshow(generated_img.permute(1, 2, 0))
+    #     plt.title(f"epoch {epoch+1}")
+    #     plt.axis("off")
+    #     plt.show()
 
     # save the generated torch tensor models to disk
     save_generator_image(generated_img, f"outputs/gen_img{epoch+1}.png")
