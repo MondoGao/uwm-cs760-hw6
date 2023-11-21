@@ -231,7 +231,7 @@ In this part, you are expected to implement GAN with MNIST dataset. We have prov
 
 
 
-				\pagebreak
+	      \pagebreak
 	\item Replace the generator update rule as the original one in the slide,\\
 	      ``Update the generator by descending its stochastic gradient:
 
@@ -272,13 +272,13 @@ In this part, you are expected to implement GAN with MNIST dataset. We have prov
 		      \end{figure}
 	      \end{soln}
 
-				\pagebreak
+	      \pagebreak
 	\item Except the method that we used in (a), how can we improve training for GAN? Implement that and report your setup, learning curves, and generated images in epoch 1, 50, 100.
 	      This question is an open-ended question and you can choose whichever method you want.
 	      \hfill (20 pts)
 
 	      \begin{soln}
-					I add two normalization layers to the generator. Which results in faster generator convergence.
+		      I add two normalization layers to the generator. Which results in faster generator convergence.
 
 		      \begin{figure}[H]
 			      \centering
@@ -310,6 +310,8 @@ In this part, you are expected to implement GAN with MNIST dataset. We have prov
 
 \end{enumerate}
 
+\pagebreak
+
 \section{Directed Graphical Model [25 points]}
 Consider the directed graphical model (aka Bayesian network) in Figure~\ref{fig:bn}.
 \begin{figure}[H]
@@ -320,7 +322,22 @@ Consider the directed graphical model (aka Bayesian network) in Figure~\ref{fig:
 \end{figure}
 Compute $P(B=t \mid E=f,J=t,M=t)$ and $P(B=t \mid E=t,J=t,M=t)$. (10 points for each) These are the conditional probabilities of a burglar in your house (yikes!) when both of your neighbors John and Mary call you and say they hear an alarm in your house, but without or with an earthquake also going on in that area (what a busy day), respectively.
 
-\begin{soln}  Solution goes here. \end{soln}
+\begin{soln}
+	\begin{align*}
+		P(B=t \mid E=f,J=t,M=t) & = \frac{P(B=t, E=f, J=t, M=t)}{P(E=f, J=t, M=t)}                                                                      \\
+		                        & = \frac{\sum_A P(B=t) P(E=f) P(A|B=t,E=f) P(J=t|A) P(M=t|A) }{\sum_B\sum_A P(B) P(E=f) P(A|B,E=f) P(J=t|A) P(M=t|A) } \\
+		                        & = \frac{P(B=t) P(E=f) \sum_A P(A|B=t,E=f) P(J=t|A) P(M=t|A) }{P(E=f) \sum_B\sum_A P(B) P(A|B,E=f) P(J=t|A) P(M=t|A) } \\
+		                        & = \frac{0.04064}{0.09896}                                                                                             \\
+		                        & = 0.41067098 \\\\
+		P(B=t \mid E=t,J=t,M=t) & = \frac{P(B=t, E=t, J=t, M=t)}{P(E=t, J=t, M=t)}                                                                      \\
+		                        & = \frac{\sum_A P(B=t) P(E=t) P(A|B=t,E=t) P(J=t|A) P(M=t|A) }{\sum_B\sum_A P(B) P(E=t) P(A|B,E=t) P(J=t|A) P(M=t|A) } \\
+		                        & = \frac{P(B=t) P(E=t) \sum_A P(A|B=t,E=t) P(J=t|A) P(M=t|A) }{P(E=t) \sum_B\sum_A P(B) P(A|B,E=t) P(J=t|A) P(M=t|A) } \\
+		                        & = \frac{0.01138}{0.04792}                                                                                             \\
+		                        & = 0.23747913
+	\end{align*}
+\end{soln}
+
+\pagebreak
 
 
 \section{Chow-Liu Algorithm [25 pts]}
