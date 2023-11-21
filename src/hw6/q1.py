@@ -154,6 +154,7 @@ for epoch in range(epochs):
         enumerate(train_loader), total=int(len(train_data) / train_loader.batch_size)
     ):
         ############ YOUR CODE HERE ##########
+        # See: https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html
         # Train Discriminator
         # all real batch first
         discriminator.zero_grad()
@@ -183,8 +184,8 @@ for epoch in range(epochs):
         err_g.backward()
         optim_g.step()
 
-        loss_d.append(err_d.item())
-        loss_g.append(err_g.item())
+        loss_d += err_d.item()
+        loss_g += err_g.item()
         ######################################
 
     # create the final fake image for the epoch
