@@ -328,7 +328,7 @@ Compute $P(B=t \mid E=f,J=t,M=t)$ and $P(B=t \mid E=t,J=t,M=t)$. (10 points for 
 		                        & = \frac{\sum_A P(B=t) P(E=f) P(A|B=t,E=f) P(J=t|A) P(M=t|A) }{\sum_B\sum_A P(B) P(E=f) P(A|B,E=f) P(J=t|A) P(M=t|A) } \\
 		                        & = \frac{P(B=t) P(E=f) \sum_A P(A|B=t,E=f) P(J=t|A) P(M=t|A) }{P(E=f) \sum_B\sum_A P(B) P(A|B,E=f) P(J=t|A) P(M=t|A) } \\
 		                        & = \frac{0.04064}{0.09896}                                                                                             \\
-		                        & = 0.41067098 \\\\
+		                        & = 0.41067098                                                                                                          \\\\
 		P(B=t \mid E=t,J=t,M=t) & = \frac{P(B=t, E=t, J=t, M=t)}{P(E=t, J=t, M=t)}                                                                      \\
 		                        & = \frac{\sum_A P(B=t) P(E=t) P(A|B=t,E=t) P(J=t|A) P(M=t|A) }{\sum_B\sum_A P(B) P(E=t) P(A|B,E=t) P(J=t|A) P(M=t|A) } \\
 		                        & = \frac{P(B=t) P(E=t) \sum_A P(A|B=t,E=t) P(J=t|A) P(M=t|A) }{P(E=t) \sum_B\sum_A P(B) P(A|B,E=t) P(J=t|A) P(M=t|A) } \\
@@ -369,10 +369,48 @@ Suppose we wish to construct a directed graphical model for 3 features $X$, $Y$,
 
 \begin{enumerate}
 	\item Compute the mutual information $I(X, Y)$ based on the frequencies observed in the data. (5 pts)
+	      \begin{soln}
+		      \[
+			      P(X=T) = 0.5, P(X=F) = 0.5
+		      \]
+		      \[
+			      P(Y=T) = 0.5, P(Y=F) = 0.5
+		      \]
+		      \[
+			      P(Z=T) = 0.55, P(Y=F) = 0.45
+		      \]
+		      \begin{align*}
+			      I(X, Y) & = \sum_{x, y} P(X=x, Y=y) \log\left(\frac{P(X=x, Y=y)}{P(X=x)P(Y=y)}\right)                                                                                                                                                                                                       \\
+			              & = \frac{40}{100} \log\left(\frac{40 \times 100}{50 \times 50}\right) + \frac{40}{100} \log\left(\frac{40 \times 100}{50 \times 50}\right) +\frac{10}{100} \log\left(\frac{10 \times 100}{50 \times 50}\right) +\frac{10}{100} \log\left(\frac{10 \times 100}{50 \times 50}\right) \\
+			              & = 0.27807191
+		      \end{align*}
+	      \end{soln}
 	\item Compute the mutual information $I(X, Z)$ based on the frequencies observed in the data. (5 pts)
+	      \begin{soln}
+		      \begin{align*}
+			      I(X, Z) & = \sum_{x, z} P(X=x, Z=z) \log\left(\frac{P(X=x, Z=z)}{P(X=x)P(Z=z)}\right)                                                                                                                                                                                                      \\
+			              & = \frac{38}{100} \log\left(\frac{38 \times 100}{50 \times 55}\right) +\frac{33}{100} \log\left(\frac{33 \times 100}{50 \times 45}\right) +\frac{12}{100} \log\left(\frac{12 \times 100}{50 \times 45}\right) +\frac{17}{100} \log\left(\frac{17 \times 100}{50 \times 55}\right) \\
+			              & = 0.13284496
+		      \end{align*}
+	      \end{soln}
 	\item Compute the mutual information $I(Z, Y)$ based on the frequencies observed in the data. (5 pts)
+	      \begin{soln}
+		      \begin{align*}
+			      I(Z, Y) & = \sum_{z, y} P(Z=z, Y=y) \log\left(\frac{P(Z=z, Y=y)}{P(Z=z)P(Y=y)}\right)                                                                                                                                                                                                    \\
+			              & = \frac{45}{100} \log\left(\frac{45 \times 100}{50 \times 55}\right) +\frac{40}{100} \log\left(\frac{40 \times 100}{50 \times 45}\right) +\frac{5}{100} \log\left(\frac{5 \times 100}{50 \times 45}\right) +\frac{10}{100} \log\left(\frac{10 \times 100}{50 \times 55}\right) \\
+			              & = 0.39731261
+		      \end{align*}
+	      \end{soln}
 	\item Which undirected edges will be selected by the Chow-Liu algorithm as the maximum spanning tree? (5 pts)
+	      \begin{soln}
+					Choose edges with maximum mutual information without creating a cycle, we'll get the following edges:
+		      \[Z, Y\]
+		      \[X, Y\]
+	      \end{soln}
 	\item Root your tree at node $X$, assign directions to the selected edges. (5 pts)
+	      \begin{soln}
+		      \[X \to Y \to Z\]
+	      \end{soln}
 \end{enumerate}
 
 \bibliography{hw6}
