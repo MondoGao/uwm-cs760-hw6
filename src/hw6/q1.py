@@ -11,6 +11,8 @@ from torch.utils.data import DataLoader
 from matplotlib import pyplot as plt
 from tqdm import tqdm
 import subprocess
+import os
+import shutil
 
 # learning parameters
 batch_size = 512
@@ -33,9 +35,9 @@ transform = transforms.Compose(
 to_pil_image = transforms.ToPILImage()
 
 # Make input, output folders
-subprocess.run(["rm", "-rf", "outputs"])
-subprocess.run(["mkdir", "-p", "input"])
-subprocess.run(["mkdir", "-p", "outputs"])
+shutil.rmtree("outputs", ignore_errors=True)
+os.mkdir("input")
+os.mkdir("outputs")
 
 # Load train data
 train_data = datasets.MNIST(
