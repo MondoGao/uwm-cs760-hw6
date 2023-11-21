@@ -17,7 +17,7 @@ import shutil
 # learning parameters
 batch_size = 512
 epochs = 100
-epochs = 10
+# epochs = 50
 # epochs = 1
 sample_size = 64  # fixed sample size for generator
 nz = 128  # latent vector size
@@ -36,8 +36,8 @@ to_pil_image = transforms.ToPILImage()
 
 # Make input, output folders
 shutil.rmtree("outputs", ignore_errors=True)
-os.mkdir("input")
-os.mkdir("outputs")
+os.makedirs("input", exist_ok=True)
+os.makedirs("outputs", exist_ok=True)
 
 # Load train data
 train_data = datasets.MNIST(
@@ -166,15 +166,16 @@ for epoch in range(epochs):
         label = label_real(b_size)
         output = discriminator(real_cpu)
         err_d_real = discriminator_loss(output, label)
-        err_d_real.backward()
+        # err_d_real.backward()
         # all fake batch
         batch_noise = create_noise(b_size, nz)
         fake = generator(batch_noise)
         label = label_fake(b_size)
         output = discriminator(fake.detach())
         err_d_fake = discriminator_loss(output, label)
-        err_d_fake.backward()
-        err_d = err_d_real + err_d_fake
+        # err_d_fake.backward()
+        err_d = (err_d_real + err_d_fake)/2
+        err_d.backward()
         optim_d.step()
 
         # Train Generator
