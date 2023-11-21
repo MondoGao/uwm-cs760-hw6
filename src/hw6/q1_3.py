@@ -52,7 +52,6 @@ class Generator(nn.Module):
         self.nz = nz
         self.main = nn.Sequential(
             nn.Linear(self.nz, 256),
-            nn.BatchNorm1d(256, 0.8),
             nn.LeakyReLU(0.2),
             nn.Linear(256, 512),
             nn.BatchNorm1d(512, 0.8),
@@ -183,7 +182,7 @@ for epoch in range(epochs):
 
         # Train Generator
         generator.zero_grad()
-        label = label_fake(b_size)
+        label = label_real(b_size)
         output = discriminator(fake)
         err_g = generator_loss(output, label)
         err_g.backward()
